@@ -7,11 +7,9 @@ using System.Collections.Generic;
 public class Rooms
 {
 
-    public static (string, Rectangle, PokemonElement) Room2(string lvl, Rectangle playerRect, PokemonElement startElement)
+    public static (string, Rectangle) Room2(string lvl, Rectangle playerRect, PokemonElement startElement, Texture2D fire, Texture2D water, Texture2D grass)
     {
-        Texture2D fire = Raylib.LoadTexture("chimchar.png");
-        Texture2D water = Raylib.LoadTexture("piplup.png");
-        Texture2D grass = Raylib.LoadTexture("turtwig.png");
+
 
         if (lvl == "choosing")
         {
@@ -49,15 +47,14 @@ public class Rooms
 
             Raylib.EndDrawing();
         }
-        return (lvl, playerRect, startElement);
+        return (lvl, playerRect);
 
     }
-    public static (string, Rectangle) Room3(string lvl, Rectangle playerRect, List<Rectangle> walls, Texture2D playerImage, float speed)
+    public static (string, Rectangle) Room3(string lvl, Rectangle playerRect, List<Rectangle> walls, Texture2D playerImage, float speed, Texture2D background)
     {
         if (lvl == "huset")
         {
-            Texture2D background = Raylib.LoadTexture("Hus1.png");
-
+            speed = 5f;
 
             Raylib.BeginDrawing();
             Raylib.DrawTexture(background, 0, 0, Color.WHITE);
@@ -102,7 +99,7 @@ public class Rooms
         }
         return (lvl, playerRect);
     }
-    public static (string, Rectangle) Room4(string lvl, Rectangle playerRect, List<Rectangle> walls, Texture2D playerImage2, float speed, Texture2D ute, Random generator)
+    public static (string, Rectangle) Room4(string lvl, Rectangle playerRect, List<Rectangle> walls2, Texture2D playerImage2, float speed, Texture2D ute, Random generator)
     {
         if (lvl == "ute")
         {
@@ -120,7 +117,7 @@ public class Rooms
             bool undoX = false;
             bool undoY = false;
 
-            foreach (Rectangle wall2 in walls)
+            foreach (Rectangle wall2 in walls2)
             {
                 if (Raylib.CheckCollisionRecs(playerRect, wall2) == true)
                 {
@@ -129,7 +126,8 @@ public class Rooms
                 }
             }
 
-            Drawing.DrawWalls(walls);
+            // walls2.Add(new Rectangle(0, 0, 281, 126));
+            // Drawing.DrawWalls(walls);
 
 
             if (undoX) playerRect.x -= movement.X;
@@ -153,46 +151,28 @@ public class Rooms
         return (lvl, playerRect);
     }
 
-    public static string Room5(string lvl,Texture2D waterFight, Texture2D waterFight2, Random generator, bool fightmode, bool startFightMenu, Vector2 mousePos, PokemonElement startElement)
+    public static string Room5(string lvl, Texture2D waterFight, Texture2D waterFight2, Random generator, bool fightmode, bool startFightMenu, Vector2 mousePos, PokemonElement startElement)
     {
         if (lvl == "fight")
         {
             int enemyHP = 50;
             int MyHP = 50;
+            Raylib.BeginDrawing();
             if (startElement == PokemonElement.water)
             {
                 if (startFightMenu == true)
                 {
 
-                    Raylib.DrawTexture(waterFight, 0, 0, Color.WHITE);
                     Rectangle fightModeButton = new Rectangle(498, 623, 234, 79);
+                    Raylib.DrawTexture(waterFight, 0, 0, Color.WHITE);
 
-                    // Vector2 mousePos2 = Raylib.GetMousePosition();
-                    // Vector2 mousePos = Raylib.GetMousePosition();
-                    buttons.Klick2(mousePos, startFightMenu, fightmode, fightModeButton);
-
-
-                    // if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
-                    // {
-                    //     if (Raylib.CheckCollisionPointRec(mousePos2, fightModeButton))
-                    //     {
-
-                    //         startFightMenu = false;
-                    //         fightmode = true;
-
-
-
-
-                    //     }
-
-                    // }
+                    (fightmode, startFightMenu) = buttons.Klick2(mousePos, startFightMenu, fightmode, fightModeButton);
                 }
 
 
                 Rectangle WaterBeam = new Rectangle(50, 655, 190, 40);
                 Rectangle BubbleBeam = new Rectangle(250, 655, 190, 40);
 
-                Raylib.BeginDrawing();
                 while (fightmode == true)
                 {
                     Raylib.DrawTexture(waterFight2, 0, 0, Color.WHITE);
@@ -231,6 +211,7 @@ public class Rooms
 
 
                     }
+                    Raylib.EndDrawing();
                 }
                 Raylib.EndDrawing();
 

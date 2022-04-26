@@ -19,18 +19,21 @@ public class buttons
         return (lvl);
     }
 
-    public static bool Klick2(Vector2 mousePos2, bool startFightMenu, bool fightmode, Rectangle fightModeButton)
+    public static (bool, bool) Klick2(Vector2 mousePos, bool startFightMenu, bool fightmode, Rectangle fightModeButton)
     {
+
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
         {
-            if (Raylib.CheckCollisionPointRec(mousePos2, fightModeButton))
-            {
-                startFightMenu = false;
-                fightmode = true;
 
-            }
+            if (Raylib.CheckCollisionPointRec(mousePos, fightModeButton))
+            {
+
+            System.Console.WriteLine("hej");
+            startFightMenu = false;
+            fightmode = true;
+        }
         }
 
-        return (fightmode);
+        return (fightmode, startFightMenu);
     }
 }

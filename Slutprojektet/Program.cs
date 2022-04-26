@@ -14,13 +14,18 @@ Texture2D ute = Raylib.LoadTexture("ute.png");
 Texture2D waterFight = Raylib.LoadTexture("battle.png");
 Texture2D waterFight2 = Raylib.LoadTexture("fightmode.png");
 Texture2D intro = Raylib.LoadTexture("MenyBild.png");
+Texture2D background = Raylib.LoadTexture("Hus1.png");
+
 
 
 float speed = 4f;
-string lvl = "meny";
+string lvl = "ute";
 
-PokemonElement startElement = PokemonElement.fire;
+PokemonElement startElement = PokemonElement.water;
 
+Texture2D fire = Raylib.LoadTexture("chimchar.png");
+Texture2D water = Raylib.LoadTexture("piplup.png");
+Texture2D grass = Raylib.LoadTexture("turtwig.png");
 
 bool startFightMenu = true;
 bool fightmode = false;
@@ -54,20 +59,16 @@ while (!Raylib.WindowShouldClose())
         Raylib.DrawText("Dokemon", 325, 200, 100, Color.RED);
         Raylib.DrawText("start", 380, 300, 50, Color.RED);
 
-        buttons.Klick(mousePos, lvl, r2);
-
-
-
-
-
+        lvl = buttons.Klick(mousePos, lvl, r2);
 
         Raylib.EndDrawing();
     }
 
-    (lvl, playerRect, startElement) = Rooms.Room2(lvl, playerRect, PokemonElement.water);
-    (lvl, playerRect) = Rooms.Room3(lvl, playerRect, walls, playerImage, speed);
+
+    (lvl, playerRect) = Rooms.Room2(lvl, playerRect, startElement, fire, water, grass);
+    (lvl, playerRect) = Rooms.Room3(lvl, playerRect, walls, playerImage, speed, background);
     (lvl, playerRect) = Rooms.Room4(lvl, playerRect, walls, playerImage2, speed, ute, generator);
-    (lvl) = Rooms.Room5(lvl, waterFight, waterFight2, generator, fightmode, startFightMenu, mousePos, PokemonElement.water);
+    (lvl) = Rooms.Room5(lvl, waterFight, waterFight2, generator, fightmode, startFightMenu, mousePos, startElement);
 
 
 
