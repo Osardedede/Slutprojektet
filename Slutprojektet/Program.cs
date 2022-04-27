@@ -19,7 +19,7 @@ Texture2D background = Raylib.LoadTexture("Hus1.png");
 
 
 float speed = 4f;
-string lvl = "ute";
+string lvl = "meny";
 
 PokemonElement startElement = PokemonElement.water;
 
@@ -33,9 +33,9 @@ bool fightmode = false;
 Random generator = new Random();
 
 
-
+// Varför jag använder en lista för att göra väggar är för att det blir hundra gånger lättare.
+// Efter som att om jag inte använder en lista för väggar  så måste jag konstant skriva kod som är 4 gr längre
 List<Rectangle> walls = new List<Rectangle>();
-List<Rectangle> walls2 = new List<Rectangle>();
 
 
 Rectangle playerRect = new Rectangle(100, 100, playerImage.width, playerImage.height);
@@ -59,7 +59,7 @@ while (!Raylib.WindowShouldClose())
         Raylib.DrawText("Dokemon", 325, 200, 100, Color.RED);
         Raylib.DrawText("start", 380, 300, 50, Color.RED);
 
-        lvl = buttons.Klick(mousePos, lvl, r2);
+        lvl = Buttons.Klick(mousePos, lvl, r2);
 
         Raylib.EndDrawing();
     }
@@ -67,21 +67,9 @@ while (!Raylib.WindowShouldClose())
 
     (lvl, playerRect) = Rooms.Room2(lvl, playerRect, startElement, fire, water, grass);
     (lvl, playerRect) = Rooms.Room3(lvl, playerRect, walls, playerImage, speed, background);
-    (lvl, playerRect) = Rooms.Room4(lvl, playerRect, walls, playerImage2, speed, ute, generator);
-    (lvl) = Rooms.Room5(lvl, waterFight, waterFight2, generator, fightmode, startFightMenu, mousePos, startElement);
-
-
-
-
-
+    (lvl, playerRect) = Rooms.Room4(lvl, playerRect, playerImage2, speed, ute, generator);
+    (lvl) = Rooms.Room5(lvl, waterFight, waterFight2, generator, fightmode, startFightMenu, startElement);
 }
-
-
-
-
-
-
-
 
 
 public enum PokemonElement { fire, water, grass };

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Raylib_cs;
 
 
-public class buttons
+public class Buttons
 {
     public static string Klick(Vector2 mousePos, string lvl, Rectangle r2)
     {
@@ -19,16 +19,16 @@ public class buttons
         return (lvl);
     }
 
-    public static (bool, bool) Klick2(Vector2 mousePos, bool startFightMenu, bool fightmode, Rectangle fightModeButton)
+    public static (bool, bool) Klick2( bool startFightMenu, bool fightmode, Rectangle fightModeButton)
     {
 
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
         {
+            Vector2 mousePos = new Vector2(Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y);
+
 
             if (Raylib.CheckCollisionPointRec(mousePos, fightModeButton))
             {
-
-            System.Console.WriteLine("hej");
             startFightMenu = false;
             fightmode = true;
         }

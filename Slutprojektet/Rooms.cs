@@ -99,7 +99,7 @@ public class Rooms
         }
         return (lvl, playerRect);
     }
-    public static (string, Rectangle) Room4(string lvl, Rectangle playerRect, List<Rectangle> walls2, Texture2D playerImage2, float speed, Texture2D ute, Random generator)
+    public static (string, Rectangle) Room4(string lvl, Rectangle playerRect, Texture2D playerImage2, float speed, Texture2D ute, Random generator)
     {
         if (lvl == "ute")
         {
@@ -114,25 +114,7 @@ public class Rooms
             playerRect.x += movement.X;
             playerRect.y += movement.Y;
 
-            bool undoX = false;
-            bool undoY = false;
-
-            foreach (Rectangle wall2 in walls2)
-            {
-                if (Raylib.CheckCollisionRecs(playerRect, wall2) == true)
-                {
-                    undoX = true;
-                    undoY = true;
-                }
-            }
-
-            // walls2.Add(new Rectangle(0, 0, 281, 126));
-            // Drawing.DrawWalls(walls);
-
-
-            if (undoX) playerRect.x -= movement.X;
-            if (undoY) playerRect.x -= movement.Y;
-
+           
             if (playerRect.x > 194 && playerRect.x < 268 && playerRect.y < 292 && playerRect.y > 257)
             {
 
@@ -151,10 +133,11 @@ public class Rooms
         return (lvl, playerRect);
     }
 
-    public static string Room5(string lvl, Texture2D waterFight, Texture2D waterFight2, Random generator, bool fightmode, bool startFightMenu, Vector2 mousePos, PokemonElement startElement)
+    public static string Room5(string lvl, Texture2D waterFight, Texture2D waterFight2, Random generator, bool fightmode, bool startFightMenu, PokemonElement startElement)
     {
         if (lvl == "fight")
         {
+
             int enemyHP = 50;
             int MyHP = 50;
             Raylib.BeginDrawing();
@@ -166,7 +149,7 @@ public class Rooms
                     Rectangle fightModeButton = new Rectangle(498, 623, 234, 79);
                     Raylib.DrawTexture(waterFight, 0, 0, Color.WHITE);
 
-                    (fightmode, startFightMenu) = buttons.Klick2(mousePos, startFightMenu, fightmode, fightModeButton);
+                    (fightmode, startFightMenu) = Buttons.Klick2(startFightMenu, fightmode, fightModeButton);
                 }
 
 
@@ -175,6 +158,8 @@ public class Rooms
 
                 while (fightmode == true)
                 {
+                    Vector2 mousePos = new Vector2(Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y);
+
                     Raylib.DrawTexture(waterFight2, 0, 0, Color.WHITE);
                     Raylib.DrawText("Water beam", 50, 665, 30, Color.RED);
                     Raylib.DrawText("Bubble beam", 250, 665, 30, Color.RED);
