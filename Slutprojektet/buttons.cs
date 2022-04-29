@@ -6,10 +6,13 @@ using Raylib_cs;
 
 public class Buttons
 {
-    public static string Klick(Vector2 mousePos, string lvl, Rectangle r2)
+    public static string Klick(string lvl, Rectangle r2)
     {
+        // om musen håls över samt klickar på r2 rektangeln så byts det rum
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
         {
+            Vector2 mousePos = new Vector2(Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y);
+
             if (Raylib.CheckCollisionPointRec(mousePos, r2))
             {
                 lvl = "choosing";
@@ -19,19 +22,21 @@ public class Buttons
         return (lvl);
     }
 
-    public static (bool, bool) Klick2( bool startFightMenu, bool fightmode, Rectangle fightModeButton)
+    public static (bool, bool) Klick2(bool startFightMenu, bool fightmode, Rectangle fightModeButton)
     {
 
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
         {
             Vector2 mousePos = new Vector2(Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y);
 
+            // om musen håls över samt klickar på fightModeButton rektangeln så ändrar boolsen värde.
+
 
             if (Raylib.CheckCollisionPointRec(mousePos, fightModeButton))
             {
-            startFightMenu = false;
-            fightmode = true;
-        }
+                startFightMenu = false;
+                fightmode = true;
+            }
         }
 
         return (fightmode, startFightMenu);
